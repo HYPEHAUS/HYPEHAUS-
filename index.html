@@ -13,9 +13,12 @@
     .bubble { font-family: 'Fredoka', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; letter-spacing:-.5px; text-shadow: var(--bubble-shadow); }
     .card { border-radius: 1.5rem; border: 1px solid rgba(0,0,0,0.1); background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
     .dark .card { border-color: rgba(255,255,255,0.1); background: #1e1e1e; }
+    .drawer{ position:fixed; inset:0; display:none; }
+    .drawer.open{ display:block; }
   </style>
 </head>
 <body class="bg-neutral-50 text-neutral-900 min-h-screen dark:bg-neutral-900 dark:text-white">
+  <!-- Header -->
   <header class="sticky top-0 z-50 backdrop-blur border-b border-neutral-200/60 dark:border-white/10 bg-white/70 dark:bg-neutral-900/70">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -25,10 +28,14 @@
       </div>
       <div class="flex items-center gap-2">
         <button id="modeBtn" class="rounded-xl border px-3 py-2 text-sm">Dark mode</button>
+        <button id="openCart" class="relative rounded-xl border px-3 py-2 text-sm font-bold bg-black text-white dark:bg-white dark:text-black">
+          Cart <span id="cartCount" class="ml-1 text-xs opacity-80">0</span>
+        </button>
       </div>
     </div>
   </header>
 
+  <!-- Hero -->
   <section class="max-w-7xl mx-auto px-4 py-14">
     <div class="rounded-3xl p-8 md:p-14 bg-gradient-to-br from-white via-neutral-100 to-neutral-200 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-700 border border-neutral-200/60 dark:border-white/10 shadow-xl">
       <div class="grid md:grid-cols-2 gap-10 items-center">
@@ -36,6 +43,10 @@
           <p class="uppercase tracking-widest text-xs mb-3 opacity-70">New Collection</p>
           <h2 class="text-5xl md:text-6xl font-black leading-[0.9] bubble">Built Different.<br/>Worn Loud.</h2>
           <p class="mt-4 text-base md:text-lg max-w-prose opacity-80">Bold bubble letters. Monochrome swagger. Hoodies, shorts, and tees designed to flex—then own it.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#shop" class="rounded-2xl px-5 py-3 text-sm font-semibold bg-black text-white dark:bg-white dark:text-black shadow">Shop the drop</a>
+            <a href="#about" class="rounded-2xl px-5 py-3 text-sm font-semibold border">About</a>
+          </div>
         </div>
         <div class="relative aspect-[4/3] rounded-3xl overflow-hidden border border-neutral-200/60 dark:border-white/10 bg-neutral-900">
           <div class="absolute inset-0 grid place-items-center">
@@ -49,11 +60,29 @@
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 pb-24">
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="shop">
-      <div class="card p-6"><h3 class="text-xl font-black bubble">Hoodie</h3><p class="opacity-70 text-sm">199 AED — Oversized fleece hoodie. Ultra-soft. Big back print.</p></div>
-      <div class="card p-6"><h3 class="text-xl font-black bubble">Shorts</h3><p class="opacity-70 text-sm">150 AED — Comfy mid-weight fleece shorts with side pockets.</p></div>
-      <div class="card p-6"><h3 class="text-xl font-black bubble">T-Shirt</h3><p class="opacity-70 text-sm">175 AED — Premium cotton tee with bold bubble graphic.</p></div>
+  <!-- Price strip -->
+  <section class="max-w-7xl mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+      <div class="card p-6 flex items-center justify-between"><div><div class="text-sm opacity-60">Hoodies</div><div class="text-3xl font-black bubble">199 AED</div></div><div class="h-12 w-12 rounded-2xl grid place-items-center bg-neutral-900 text-white dark:bg-white dark:text-black text-xs font-bold">AED</div></div>
+      <div class="card p-6 flex items-center justify-between"><div><div class="text-sm opacity-60">Shorts</div><div class="text-3xl font-black bubble">150 AED</div></div><div class="h-12 w-12 rounded-2xl grid place-items-center bg-neutral-900 text-white dark:bg-white dark:text-black text-xs font-bold">AED</div></div>
+      <div class="card p-6 flex items-center justify-between"><div><div class="text-sm opacity-60">T-Shirts</div><div class="text-3xl font-black bubble">175 AED</div></div><div class="h-12 w-12 rounded-2xl grid place-items-center bg-neutral-900 text-white dark:bg-white dark:text-black text-xs font-bold">AED</div></div>
+    </div>
+  </section>
+
+  <!-- Shop -->
+  <section id="shop" class="max-w-7xl mx-auto px-4 pb-24">
+    <div class="flex items-end justify-between mb-6">
+      <h3 class="text-3xl md:text-4xl font-black bubble">Shop</h3>
+      <p class="text-sm opacity-70">All items available in <b>Black</b> & <b>White</b>.</p>
+    </div>
+    <div id="grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="max-w-7xl mx-auto px-4 pb-24">
+    <div class="rounded-3xl p-8 md:p-12 bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900">
+      <h3 class="text-3xl md:text-4xl font-black bubble">WEAR IT, FLEX IT, OWN IT</h3>
+      <p class="mt-3 max-w-prose opacity-90">HYPE HAUS is a youth-born label from Abu Dhabi—clean silhouettes, loud graphics, and effortless mix-and-match sets. All prices in AED. Limited quantities per drop.</p>
     </div>
   </section>
 
@@ -64,26 +93,127 @@
     </div>
   </footer>
 
+  <!-- Cart Drawer -->
+  <div id="drawer" class="drawer">
+    <div class="absolute inset-0 bg-black/50" onclick="closeCart()"></div>
+    <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white dark:bg-neutral-900 shadow-2xl p-6 flex flex-col">
+      <div class="flex items-center justify-between mb-4">
+        <h4 class="text-2xl font-black bubble">Your Cart</h4>
+        <button onclick="closeCart()" class="rounded-lg border px-3 py-1">Close</button>
+      </div>
+      <div id="cartLines" class="flex-1 overflow-auto divide-y divide-neutral-200/70 dark:divide-white/10"></div>
+      <div class="pt-4 mt-2 border-t border-neutral-200/70 dark:border-white/10">
+        <div class="flex items-center justify-between font-bold text-lg"><span>Total</span><span id="cartTotal">AED 0</span></div>
+        <button class="mt-4 w-full rounded-2xl px-5 py-3 text-sm font-semibold bg-black text-white dark:bg-white dark:text-black">Checkout (mock)</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Dark mode toggle
     const html = document.documentElement;
     const modeBtn = document.getElementById('modeBtn');
-    modeBtn.addEventListener('click', () => {
+    const savedTheme = localStorage.getItem('hh-theme');
+    if(savedTheme==='dark'){ html.classList.add('dark'); modeBtn.textContent = 'Light mode'; }
+    modeBtn.addEventListener('click', ()=>{
       html.classList.toggle('dark');
-      modeBtn.textContent = html.classList.contains('dark') ? 'Light mode' : 'Dark mode';
-    const defaultProducts = [
-  { id:1, name:'Beige Leopard Star Hoodie', price:199, category:'Hoodies', img:'IMG_4436.jpeg', desc:'Oversized fleece hoodie with leopard star print.' },
-  { id:2, name:'Wave Graphic Hoodie (Beige)', price:199, category:'Hoodies', img:'IMG_1792.jpeg', desc:'Beige hoodie with wave graphic and bold HYPEHAUS lettering.' },
-  { id:3, name:'Classic Beige Hoodie', price:199, category:'Hoodies', img:'IMG_4437.jpeg', desc:'Clean beige hoodie with classic HYPEHAUS bubble logo.' },
-  { id:4, name:'Leopard Star Hoodie (Back)', price:199, category:'Hoodies', img:'IMG_4438.jpeg', desc:'Back view of our signature leopard star hoodie.' },
-  { id:5, name:'Black Hoodie Edition', price:199, category:'Hoodies', img:'IMG_4439.jpeg', desc:'Black hoodie version with oversized back print.' },
-  { id:6, name:'Beige Hoodie Front', price:199, category:'Hoodies', img:'IMG_4440.jpeg', desc:'Front view with clean bubble HYPEHAUS text.' },
-  { id:7, name:'White Hoodie Back', price:199, category:'Hoodies', img:'IMG_4441.jpeg', desc:'White hoodie with star and bubble font logo.' },
-  { id:8, name:'Beige Hoodie Detail', price:199, category:'Hoodies', img:'IMG_4442.jpeg', desc:'Detailed view of premium hoodie texture and logo.' },
-  { id:9, name:'HYPEHAUS Hoodie Close-up', price:199, category:'Hoodies', img:'IMG_4443.jpeg', desc:'Close-up of print quality and logo embroidery.' }
-];
+      const darkNow = html.classList.contains('dark');
+      modeBtn.textContent = darkNow ? 'Light mode' : 'Dark mode';
+      localStorage.setItem('hh-theme', darkNow ? 'dark' : 'light');
+    });
 
+    // ---------- PRODUCTS (using your uploaded filenames) ----------
+    const defaultProducts = [
+      { id:1, name:'Beige Leopard Star Hoodie',   price:199, category:'Hoodies', img:'IMG_4436.jpeg', desc:'Oversized fleece hoodie with leopard star print.' },
+      { id:2, name:'Wave Graphic Hoodie (Beige)', price:199, category:'Hoodies', img:'IMG_1792.jpeg', desc:'Beige hoodie with wave graphic and bold HYPEHAUS lettering.' },
+      { id:3, name:'Classic Beige Hoodie',        price:199, category:'Hoodies', img:'IMG_4437.jpeg', desc:'Clean beige hoodie with classic HYPEHAUS bubble logo.' },
+      { id:4, name:'Leopard Star Hoodie (Back)',  price:199, category:'Hoodies', img:'IMG_4438.jpeg', desc:'Back view of our signature leopard star hoodie.' },
+      { id:5, name:'Black Hoodie Edition',        price:199, category:'Hoodies', img:'IMG_4439.jpeg', desc:'Black hoodie version with oversized back print.' },
+      { id:6, name:'Beige Hoodie Front',          price:199, category:'Hoodies', img:'IMG_4440.jpeg', desc:'Front view with clean bubble HYPEHAUS text.' },
+      { id:7, name:'White Hoodie Back',           price:199, category:'Hoodies', img:'IMG_4441.jpeg', desc:'White hoodie with star and bubble font logo.' },
+      { id:8, name:'Beige Hoodie Detail',         price:199, category:'Hoodies', img:'IMG_4442.jpeg', desc:'Detailed view of premium hoodie texture and logo.' },
+      { id:9, name:'HYPEHAUS Hoodie Close-up',    price:199, category:'Hoodies', img:'IMG_4443.jpeg', desc:'Close-up of print quality and logo embroidery.' }
+    ];
+
+    // ---------- CART ----------
+    const AED = v => new Intl.NumberFormat('en-AE',{style:'currency',currency:'AED',maximumFractionDigits:0}).format(v);
+    const cartKey = 'hh-cart-v1';
+    let cart = JSON.parse(localStorage.getItem(cartKey) || '[]');
+
+    const grid = document.getElementById('grid');
+    const cartCount = document.getElementById('cartCount');
+    const drawer = document.getElementById('drawer');
+    const cartLines = document.getElementById('cartLines');
+    const cartTotalEl = document.getElementById('cartTotal');
+
+    function renderProducts(){
+      grid.innerHTML = '';
+      defaultProducts.forEach(p=>{
+        const el = document.createElement('div');
+        el.className = 'card overflow-hidden hover:shadow-xl transition';
+        el.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/800x800?text=${encodeURIComponent(p.name)}'" class="w-full aspect-square object-cover"/>
+          <div class="p-5">
+            <div class="flex items-end justify-between">
+              <div>
+                <h4 class="text-xl font-black bubble">${p.name}</h4>
+                <p class="text-sm opacity-70 mt-1 max-w-xs">${p.desc||''}</p>
+              </div>
+              <div class="text-2xl font-black bubble">${AED(p.price)}</div>
+            </div>
+            <div class="mt-4 flex items-center gap-3">
+              <button class="rounded-2xl px-5 py-2.5 text-sm font-semibold bg-black text-white dark:bg-white dark:text-black shadow" data-add="${p.id}">Add to cart</button>
+            </div>
+          </div>`;
+        grid.appendChild(el);
+        el.querySelector('[data-add]').addEventListener('click', ()=> addToCart(p.id));
+      });
+    }
+
+    function addToCart(id){
+      const line = cart.find(x=>x.id===id);
+      if(line) line.qty++; else cart.push({id, qty:1});
+      saveCart(); renderCart();
+    }
+    function saveCart(){ localStorage.setItem(cartKey, JSON.stringify(cart)); }
+
+    function renderCart(){
+      const count = cart.reduce((s,i)=>s+i.qty,0);
+      cartCount.textContent = count;
+      cartLines.innerHTML = '';
+      let total = 0;
+      cart.forEach((line,idx)=>{
+        const p = defaultProducts.find(pr=>pr.id===line.id);
+        const lineTotal = p.price * line.qty; total += lineTotal;
+        const row = document.createElement('div');
+        row.className = 'py-4 flex items-center gap-4';
+        row.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" class="h-16 w-16 object-cover rounded-xl"/>
+          <div class="flex-1">
+            <div class="font-semibold">${p.name}</div>
+            <div class="text-sm opacity-70">${AED(p.price)} × ${line.qty}</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="h-8 w-8 grid place-items-center rounded-md border" data-minus>−</button>
+            <button class="h-8 w-8 grid place-items-center rounded-md border" data-plus>+</button>
+          </div>
+          <div class="w-20 text-right font-semibold">${AED(lineTotal)}</div>
+          <button class="ml-2 text-xs opacity-70 hover:opacity-100" data-remove>Remove</button>`;
+        cartLines.appendChild(row);
+        row.querySelector('[data-minus]').addEventListener('click',()=>{ cart[idx].qty=Math.max(1,cart[idx].qty-1); saveCart(); renderCart(); });
+        row.querySelector('[data-plus]').addEventListener('click',()=>{ cart[idx].qty++; saveCart(); renderCart(); });
+        row.querySelector('[data-remove]').addEventListener('click',()=>{ cart.splice(idx,1); saveCart(); renderCart(); });
+      });
+      cartTotalEl.textContent = AED(total);
+    }
+
+    document.getElementById('openCart').addEventListener('click', ()=> drawer.classList.add('open'));
+    function closeCart(){ drawer.classList.remove('open'); }
+    window.closeCart = closeCart;
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    renderProducts();
+    renderCart();
   </script>
 </body>
 </html>
-
